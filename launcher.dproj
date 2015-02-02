@@ -17,9 +17,10 @@
     <UnittestMode>false</UnittestMode>
     <OutputName>launcher</OutputName>
     <Target>Executable</Target>
-    <Externalconsole>true</Externalconsole>
     <DebugLevel>0</DebugLevel>
     <ExtraLinkerArguments>-llua</ExtraLinkerArguments>
+    <ConsolePause>false</ConsolePause>
+    <Commandlineparameters>--threads=6</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>..\train\bin\Release</OutputPath>
@@ -60,5 +61,7 @@
     <Compile Include="..\train\src\D\lua_d_api\lualib.d">
       <Link>src\D\lualib.d</Link>
     </Compile>
+    <Compile Include="src\D\common.d" />
+    <Compile Include="src\D\CalcThread.d" />
   </ItemGroup>
 </Project>

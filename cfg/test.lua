@@ -48,6 +48,7 @@ do
   while (v <= v_max)
   do
     
+    cmd_line = ""
     cmd_line = cmd_line .. " --vehicles=" .. nv
     cmd_line = cmd_line .. " --init_velocity=" .. v
     
