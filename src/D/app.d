@@ -8,6 +8,7 @@ module	main;
 
 import	std.stdio;
 import	std.getopt;
+import	std.string;
 
 import	LuaScript;
 import	common;
@@ -16,6 +17,7 @@ import	CalcThread;
 private
 {
 	string[]		cmd_lines;
+	string[]		input_data;
 	TLauncherCmd	cmd_line;
 }
 
@@ -52,6 +54,24 @@ void main(string[] args)
 	int err = 0;
 
 	int cmd_count = lua_cfg.get_int("cmd_count", err);
+	string results_path = lua_cfg.get_string("results_path", err);
+	int data_count = lua_cfg.get_int("data_count", err);
+
+	for (int i = 0; i < data_count; i++)
+	{
+		input_data ~= lua_cfg.get_str_field("input_data", i, err);
+	}
+
+	string input_file_name = format("%sinput", results_path);
+
+	File input_file = File(input_file_name, "wt");
+
+	for (int i = 0; i < data_count; i++)
+	{
+		input_file.writeln(input_data[i]);
+	}
+
+	input_file.close();
 
 	for (int i = 0; i < cmd_count; i++)
 	{
@@ -70,7 +90,8 @@ void main(string[] args)
 	while (task_count > mod)
 	{
 		calc_thread[i] = new CCalcThread();
-		calc_thread[i].init(cmd_lines, i*thread_tasks, (i+1)*thread_tasks-1, i, cmd_line.train_path);
+		calc_thread[i].init(cmd_lines, i*thread_tasks, (i+1)*thread_tasks-1, i, 
+			                cmd_line.train_path, results_path);
 		calc_thread[i].start();
 
 		i++;
@@ -80,7 +101,8 @@ void main(string[] args)
 	if (mod > 0)
 	{
 		calc_thread[i-1] = new CCalcThread();
-		calc_thread[i-1].init(cmd_lines, (i-1)*thread_tasks, cmd_count-1, i-1, cmd_line.train_path);
+		calc_thread[i-1].init(cmd_lines, (i-1)*thread_tasks, cmd_count-1, i-1, 
+			                  cmd_line.train_path, results_path);
 		calc_thread[i-1].start();
 	}
 }

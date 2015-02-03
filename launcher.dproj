@@ -20,7 +20,7 @@
     <DebugLevel>0</DebugLevel>
     <ExtraLinkerArguments>-llua</ExtraLinkerArguments>
     <ConsolePause>false</ConsolePause>
-    <Commandlineparameters>--threads=6</Commandlineparameters>
+    <Commandlineparameters>--threads=1</Commandlineparameters>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>..\train\bin\Release</OutputPath>
@@ -32,6 +32,7 @@
     <Externalconsole>true</Externalconsole>
     <DebugLevel>0</DebugLevel>
     <ExtraLinkerArguments>-llua</ExtraLinkerArguments>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Unittest|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +44,8 @@
     <Target>Executable</Target>
     <Externalconsole>true</Externalconsole>
     <DebugLevel>0</DebugLevel>
+    <ConsolePause>false</ConsolePause>
+    <ExtraLinkerArguments>-llua</ExtraLinkerArguments>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="src\D\app.d" />

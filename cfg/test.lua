@@ -40,6 +40,10 @@ local cmd_line = ""
 -- Command lines count: accessable from launcher
 cmd_count = 0
 
+-- Data to input file 
+data_count = 0
+input_data = {}
+
 while (nv <= nv_max)
 do
   
@@ -54,12 +58,46 @@ do
     
     cmd_lines[cmd_count+1] = cmd_line
     
+    st = "" .. cmd_count .. " "
+    st = st .. nv .. " " .. v    
+    input_data[data_count+1] = st    
+    
     cmd_count = cmd_count + 1
+    data_count = data_count + 1
     
     v = v + v_step
     
   end
   
+  input_data[data_count+1] = "##"
+  data_count = data_count + 1
+  
   nv = nv + nv_step
   
 end
+
+-- Results path
+local subdir = "J_nv_v0/"
+
+results_path = "/home/maisvendoo/work/mono-d/RESULTS/" .. subdir
+
+-- Lua File system library
+lfs = require "lfs"
+
+lfs.mkdir(results_path)
+
+-- Output in file
+--local out_file = io.open(results_path .. "input", "w+")
+--[[io.output(out_file)
+
+io.write("#\n");
+io.write("#col1: idx col2: nv col3: v, kmh\n");
+io.write("#\n");
+
+for i=1, data_count do
+  
+  io.write(input_data[i] .. "\n")
+
+end]]--
+    
+--out_file:close(out_file)
